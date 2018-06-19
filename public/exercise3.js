@@ -9,13 +9,15 @@ let defaultState = {
 let reducer3 = (state = defaultState, action) => {
 
 	var stateCopy = Object.assign({}, state);// This is a very ES5 way to copy an object 
-
+	
 	if (action.type == "CLICK_CHECKBOX") {
 		stateCopy.isChecked = !stateCopy.isChecked;
 		return stateCopy;
+	} else {
+		return state;
 	}
 
-	return state;
+	
 }
 
 let store3 = Redux.createStore(reducer3);
@@ -25,10 +27,10 @@ let checkboxLabelHTML = document.getElementById('checkbox-label');
 
 store3.subscribe(() => {
 	let currentState = store3.getState();
-	if (currentState.isChecked == true) {
-		checkboxLabelHTML.innerHTML == 'checked';
+	if (currentState.isChecked) {
+		checkboxLabelHTML.innerHTML = 'checked';
 	} else {
-		checkboxLabelHTML.innerHTML == 'unchecked';
+		checkboxLabelHTML.innerHTML = 'unchecked';
 	}
 })
 
@@ -39,6 +41,7 @@ store3.subscribe(() => {
 
 
 checkboxHTML.addEventListener('change', (e)=>{
+	console.log('Hello')
 	store3.dispatch({
 		type: "CLICK_CHECKBOX"
 	})
